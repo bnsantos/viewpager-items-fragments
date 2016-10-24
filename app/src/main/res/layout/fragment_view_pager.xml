@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+  xmlns:android="http://schemas.android.com/apk/res/android">
+  <FrameLayout
+    android:id="@+id/layout"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.bnsantos.viewpager.fragments.issue.ViewPagerFragment"
+    android:background="@android:color/black">
+
+    <TextView
+      android:id="@+id/text"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      style="?attr/titleTextStyle"
+      android:textColor="@android:color/white"
+      android:textSize="50sp"
+      android:text="@string/hello_blank_fragment"/>
+    <Button
+      android:id="@+id/startFragment"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/start_fragment"
+      android:visibility="gone"
+      android:layout_gravity="bottom|center"/>
+  </FrameLayout>
+</layout>
