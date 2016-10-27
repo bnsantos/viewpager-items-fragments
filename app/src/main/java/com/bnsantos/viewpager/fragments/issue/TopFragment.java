@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 public class TopFragment extends Fragment{
+  public static final String TAG = TopFragment.class.getSimpleName();
 
   public static TopFragment newInstance() {
     TopFragment fragment = new TopFragment();
@@ -19,7 +20,7 @@ public class TopFragment extends Fragment{
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    Log.i(TopFragment.class.getSimpleName(), "onCreate fragment ");
+    Log.i(TAG, "onCreate fragment ");
   }
 
   @Override
@@ -31,25 +32,25 @@ public class TopFragment extends Fragment{
   @Override
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
-    Log.i(TopFragment.class.getSimpleName(), "onViewCreated fragment ");
+    Log.i(TAG, "onViewCreated fragment ");
 
   }
   @Override
   public void onAttach(Context context) {
     super.onAttach(context);
-    Log.i(TopFragment.class.getSimpleName(), "onAttach fragment ");
+    Log.i(TAG, "onAttach fragment ");
   }
 
   @Override
   public void onDetach() {
     super.onDetach();
-    Log.i(TopFragment.class.getSimpleName(), "onDetach fragment ");
+    Log.i(TAG, "onDetach fragment ");
   }
 
   @Override
   public void onDestroyView() {
     super.onDestroyView();
-    Log.i(TopFragment.class.getSimpleName(), "onDestroyView fragment ");
+    Log.i(TAG, "onDestroyView fragment ");
   }
 
   @Override
