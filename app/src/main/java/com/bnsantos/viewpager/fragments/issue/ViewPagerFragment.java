@@ -6,6 +6,7 @@ import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,10 +17,11 @@ import com.bnsantos.viewpager.fragments.issue.databinding.FragmentViewPagerBindi
 
 import java.lang.reflect.Field;
 
+import static android.R.attr.fragment;
+
 public class ViewPagerFragment extends Fragment implements View.OnClickListener {
   private static final String FRAGMENT_POS = "ViewPagerFragment_BUNDLE_POS";
   public static final String TAG = ViewPagerFragment.class.getSimpleName();
-  private static final String BUNDLE_SHOWING_TOP_FRAGMENT = "bundle_top_fragment";
   private int mPos;
   private FragmentViewPagerBinding mBinding;
 
@@ -92,12 +94,20 @@ public class ViewPagerFragment extends Fragment implements View.OnClickListener 
   }
 
   @Override
+  public void onResume() {
+    super.onResume();
+    Log.i(TAG, "onResume fragment " + mPos);
+  }
+
+  @Override
   public void onClick(View v) {
-    FragmentTransaction trans = getFragmentManager().beginTransaction();
-    trans.replace(R.id.layout, TopFragment.newInstance());
+    mBinding.startFragment.setVisibility(View.GONE);
+
+    FragmentTransaction trans = getChildFragmentManager().beginTransaction();
+    trans.replace(R.id.content, TopFragment.newInstance());
     trans.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
     trans.addToBackStack(null);
-    trans.commitAllowingStateLoss();
+    trans.commit();
   }
 
   @Override
@@ -106,4 +116,15 @@ public class ViewPagerFragment extends Fragment implements View.OnClickListener 
     Log.i(TAG, "onSaveInstanceState fragment " + mPos);
   }
 
+  public boolean onBackPressed() {
+    FragmentManager childFragmentManager = getChildFragmentManager();
+    if(childFragmentManager.getBackStackEntryCount()!=0&&mPos==0){
+      mBinding.startFragment.setVisibility(View.VISIBLE);
+      if(childFragmentManager.getBackStackEntryCount()!=0) {
+        childFragmentManager.popBackStack();
+        return true;
+      }
+    }
+    return false;
+  }
 }

@@ -31,23 +31,40 @@ public class ViewPagerActivity extends AppCompatActivity {
     mBinding.tabs.getTabAt(2).setIcon(android.R.drawable.ic_dialog_map);
   }
 
+  @Override
+  public void onBackPressed() {
+    if(mBinding.viewPager.getCurrentItem() == 0){
+      Fragment fragment = ((ViewPagerAdapter) mBinding.viewPager.getAdapter()).getFragment(0);
+      if (((ViewPagerFragment)fragment).onBackPressed()) {
+        return;
+      }
+    }
+    super.onBackPressed();
+  }
+
   private class ViewPagerAdapter extends FragmentStatePagerAdapter{
     public ViewPagerAdapter(FragmentManager fm) {
       super(fm);
+      mFragments = new Fragment[getCount()];
     }
+
+    private Fragment[] mFragments;
 
     @Override
     public Fragment getItem(int position) {
-      if(position == 0){
-        return RootFragment.newInstance(position);
-      }else {
-        return ViewPagerFragment.newInstance(position);
+      if (mFragments[position] == null) {
+        mFragments[position] = ViewPagerFragment.newInstance(position);
       }
+      return mFragments[position];
     }
 
     @Override
     public int getCount() {
       return 3;
+    }
+
+    public Fragment getFragment(int pos) {
+      return mFragments[pos];
     }
   }
 }

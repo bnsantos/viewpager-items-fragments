@@ -37,7 +37,7 @@ public class RootFragment extends Fragment{
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.fragment_root, container, false);
 
-    FragmentTransaction transaction = getFragmentManager().beginTransaction();
+    FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
     transaction.replace(R.id.root_frame, ViewPagerFragment.newInstance(mPos));
     transaction.commit();
 
