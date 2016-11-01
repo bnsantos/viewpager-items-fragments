@@ -63,7 +63,7 @@ public class ViewPagerFragment extends Fragment implements View.OnClickListener 
         mBinding.layout.setBackgroundResource(android.R.color.holo_green_dark);
         break;
       default:
-        mBinding.startFragment.setVisibility(View.VISIBLE);
+        mBinding.startFragment.setVisibility(hasChildFragment()?View.GONE:View.VISIBLE);
         break;
     }
     Log.i(TAG, "onViewCreated fragment " + mPos);
@@ -117,14 +117,16 @@ public class ViewPagerFragment extends Fragment implements View.OnClickListener 
   }
 
   public boolean onBackPressed() {
-    FragmentManager childFragmentManager = getChildFragmentManager();
-    if(childFragmentManager.getBackStackEntryCount()!=0&&mPos==0){
+    if(hasChildFragment()){
       mBinding.startFragment.setVisibility(View.VISIBLE);
-      if(childFragmentManager.getBackStackEntryCount()!=0) {
-        childFragmentManager.popBackStack();
-        return true;
-      }
+      getChildFragmentManager().popBackStack();
+      return true;
     }
     return false;
+  }
+
+  private boolean hasChildFragment(){
+    FragmentManager childFragmentManager = getChildFragmentManager();
+    return childFragmentManager.getBackStackEntryCount()!=0&&mPos==0;
   }
 }
